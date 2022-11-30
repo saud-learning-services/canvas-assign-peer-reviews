@@ -28,3 +28,37 @@ def _get_course(canvas_obj, course_id):
         util.shut_down(f'ERROR: Could not find course [ID: {course_id}]. Please check course id.')
 
     return course
+
+def _matches_dict_key_val(dic, key, matches_val):
+    '''Returns the dictionary if the provided key matches the match_val
+    
+    parameters:
+        dic (dict)
+        key (string): the key string in the dict to find
+        matches_val (str|int): they str or int to try to find in the key
+
+    returns:
+        boolean
+    '''
+    # for use in list , example:
+    # [d for d in list if _matches_dict_id(d, "key", matches_val)]
+    return(dic[f"{key}"] == matches_val)
+    
+def _matches_dict_key_val_list(dic, key, matches_val_list):
+    '''Returns the dictionary if the provided key matches the match_val
+    
+    parameters:
+        dic (dict)
+        key (string): the key string in the dict to find
+        matches_val (str|int): they str or int to try to find in the key
+
+    returns:
+        boolean
+    '''
+    # for use in list , example:
+    # [d for d in list if _matches_dict_id(d, "key", matches_val)]
+    return(dic[f"{key}"] in matches_val_list)
+
+def _return_single_dict_match(some_list, match_key, match_val):
+            out = [d for d in some_list if _matches_dict_key_val(d, match_key, match_val)][0]
+            return(out)

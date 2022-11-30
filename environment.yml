@@ -13,3 +13,4 @@ dependencies:
   - pip
   - pip:
       - canvasapi>=2.0.0
+      - pick
