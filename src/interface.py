@@ -5,7 +5,6 @@ authors:
 
 import settings
 import pandas as pd
-from helpers import _return_single_dict_match
 from util import shut_down
 from pick import pick
 from canvasapi import Canvas
@@ -61,16 +60,16 @@ def get_user_inputs(URL, KEY):
 
     # get how to assign peer reviews
     try:
-        title = "Please select how you to get student information for assigning peer reviews"
-        options = ["group", "assignment"]
-        peer_reviews_from = pick(options, title, multiselect=False, min_selection_count=1)
+        #title = "Please select how you to get student information for assigning peer reviews"
+        #options = ["group", "assignment"]
+        #peer_reviews_from = pick(options, title, multiselect=False, min_selection_count=1)
 
         
-        settings.PR_SOURCE = peer_reviews_from[0]
+        settings.PR_SOURCE = "assignment"
 
         #if groups then
-        if peer_reviews_from[1] == 0:
-
+        #if peer_reviews_from[1] == 0:
+        if False:
             try:
                 title = "Please select which Canvas Group Set to use"
                 groups_df, groups_list = _get_groups(course)
@@ -104,7 +103,7 @@ def get_user_inputs(URL, KEY):
     # get assignment object
     try:
         assignment_number = input("Please Enter the Assignment for the New Peer Reviews ")
-        assignment = course.get_assignment(assignment_number)
+        assignment = course.get_assignment(assignment_number, include=["submissions"])
 
     except Exception as e:
         shut_down("ERROR: Assignment not found. Please check assignment number.")
