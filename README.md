@@ -9,9 +9,18 @@
 4. Create .env file and include:
 
 ```
-API_KEY = ''
-API_URL = 'https://ubc.instructure.com'
+API_KEY = "<your key here>"
+API_URL = "https://ubc.instructure.com"
 ```
+
+> Creating an env file: 
+> - if you have VSCode (Mac or Windows): https://learning.oreilly.com/library/view/javascript-by-example/9781788293969/d34ba441-abb3-4937-acf1-a2e7d54ffb23.xhtmlto create a .env you can follow the instructions here: 
+> - Otherwise:
+> 1. Open Notepad (or TextEditor) 
+> 2. Enter the information (API_KEY, API_URL from above) and Save
+> 3. In the Save menu, set the file type to "All Files" 
+> 4. Name the file .env
+> 5. Hit save - you may see a warning about the file type, you want to use .env
 
 #### Every Time
 
