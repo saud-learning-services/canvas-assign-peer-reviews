@@ -8,7 +8,7 @@ import pandas as pd
 from util import shut_down
 from pick import pick
 from canvasapi import Canvas
-from termcolor import cprint
+from termcolor import cprint, colored
 import os
 from dotenv import load_dotenv
 load_dotenv() 
@@ -53,8 +53,9 @@ def get_user_inputs(URL, KEY):
 
     # get course object
     try:
-        course_number = input("Course Number: ")
+        course_number = input(colored("Course Number: ", "blue"))
         course = canvas.get_course(course_number)
+        cprint(f"{course.name}", "yellow")
     except Exception as e:
         shut_down("ERROR: Course not found. Please check course number.")
 
@@ -90,8 +91,9 @@ def get_user_inputs(URL, KEY):
         else:
 
             try:
-                assignment_id_peerreviews = input("Please enter the assignment_id to access original peer reviews for: ")
+                assignment_id_peerreviews = input(colored("Please enter the assignment id to access original peer reviews for: ", "blue"))
                 assignment_peerreview = course.get_assignment(assignment_id_peerreviews)
+                cprint(f"{assignment_peerreview.name}", "yellow")
                 settings.ASSIGNMENT_PR = assignment_peerreview
 
             except:
@@ -102,8 +104,9 @@ def get_user_inputs(URL, KEY):
 
     # get assignment object
     try:
-        assignment_number = input("Please Enter the Assignment for the New Peer Reviews ")
+        assignment_number = input(colored("Please enter the assignment id to create new peer reviews for: ", "blue"))
         assignment = course.get_assignment(assignment_number, include=["submissions"])
+        cprint(f"{assignment.name}", "yellow")
 
     except Exception as e:
         shut_down("ERROR: Assignment not found. Please check assignment number.")
@@ -114,6 +117,7 @@ def get_user_inputs(URL, KEY):
     # set course and assignment objects to global variables
     settings.COURSE = course
     settings.ASSIGNMENT = assignment
+    settings.STUDENTS = course.get_users(enrollment_type=["student"])
 
     # return inputs dictionary
     return
@@ -134,7 +138,7 @@ def _prompt_for_confirmation(confirmationList=[], *args):
         cprint(f"{i[0]}: {i[1]}", "blue")
     print("\n")
 
-    confirm = input("Would you like to continue using the above information?[y/n]: ")
+    confirm = input(colored("Would you like to continue using the above information?[y/n]: ", "blue"))
 
     print("\n")
 

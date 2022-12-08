@@ -13,6 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Canvas object to provide access to Canvas API
 COURSE = None
+STUDENTS = None
 
 # Assignment object representing Canvas assignment specified by user input
 ASSIGNMENT = None

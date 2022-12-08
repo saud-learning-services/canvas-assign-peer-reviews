@@ -2,6 +2,7 @@ import pandas as pd
 from helpers import auto_submit
 from interface import get_user_inputs, _prompt_for_confirmation
 import os
+from termcolor import colored
 from dotenv import load_dotenv
 import settings
 load_dotenv() 
@@ -9,7 +10,7 @@ load_dotenv()
 API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
 
-def setup(API_URL, API_KEY):
+def main():
     
     # get the user inputs
     # this creates necessary settings variables
@@ -19,30 +20,55 @@ def setup(API_URL, API_KEY):
     ASSIGNMENT = settings.ASSIGNMENT
     PR_SOURCE = settings.PR_SOURCE
     ASSIGNMENT_PR = settings.ASSIGNMENT_PR
+    STUDENTS = settings.STUDENTS
     
     #TODO - implement the group option
     GROUP_PR = settings.GROUP_PR 
 
-    # get the studetns in the course
-    students = _create_student_dict(COURSE)
+    # get the students in the course as a dictionary (for reference to name)
+    students_dict = _create_student_dict(STUDENTS)
     
     # get the peer reviews from the original assignment
     og_peer_reviews = _get_peer_reviews(ASSIGNMENT_PR)
+    print(f"{ASSIGNMENT_PR.name} peer reviews:")
+    print(og_peer_reviews)
 
     # for each user, get the list of who they were assessed by
     # in the new peer reviews, the user will assess the original assessees
-    
+    #_check_for_auto_submit(ASSIGNMENT, STUDENTS)
     # for the new assignment, delete any existing peer reviews
     #TODO - add confirmation step here 
     # returns submissions, needed to assign new peer reviews
 
-    _prompt_for_confirmation([("Please confirm you would like to move forward assigning peer reviews for: ", f"{ASSIGNMENT.name}. Please note - this will delete any existing peer reviews in {ASSIGNMENT.name}")])
-    _create_reverse_peer_reviews(ASSIGNMENT, students, og_peer_reviews)
 
-    # for each submission
+    _prompt_for_confirmation([
+        ("Please confirm you would like to move forward assigning peer reviews for", 
+        f"{colored(ASSIGNMENT.name, 'yellow')}{colored('. Please note - this will delete any existing peer reviews in ', 'blue')}{colored(ASSIGNMENT.name, 'yellow')}")
+        ])
+
+    _create_reverse_peer_reviews(ASSIGNMENT, students_dict, og_peer_reviews)
+
+    # for each submission1249368
     # get the user id
     # get the list of reviewers
 
+def _check_for_auto_submit(assignment, students):
+
+    confirm = input(colored(f"Do you need to auto-submit for {assignment.name}? [y/n]: ", "blue"))
+
+    confirm = confirm.upper()
+
+    if confirm == "Y":
+        auto_submit(students, assignment)
+
+    elif confirm == "N":
+        print("Not autosubmitting - please beware peer reviews only work for students with submissions")
+
+    else: 
+        print(f"Entered key {confirm} not valid. Please enter Y or N.")
+        _check_for_auto_submit(assignment, students)
+
+    
 
 def _create_reverse_peer_reviews(assignment, student_dict, original_reviews):
 
@@ -88,8 +114,7 @@ def _create_reverse_peer_reviews(assignment, student_dict, original_reviews):
                     print(f"Error {e}")
 
 
-def _create_student_dict(course):
-    students = course.get_users(enrollment_type=["student"])
+def _create_student_dict(students):
     students_dict = {}
     for student in students:
         student_dict = student.__dict__
@@ -115,23 +140,10 @@ def _delete_submission_peer_reviews(submission):
 
 
 if __name__ == "__main__":
-    get_user_inputs(API_URL, API_KEY)
-
-    print(settings.PR_SOURCE)
-    print(settings.ASSIGNMENT, settings.ASSIGNMENT_PR)
-
-    if settings.PR_SOURCE == "assignment":
-        _prompt_for_confirmation([("Selected course:", settings.COURSE.name), 
-        ("You have selected to use peer reviews from ", settings.ASSIGNMENT_PR.name), ("to create new peer reviews in", settings.ASSIGNMENT.name)])
-
-        original_peer_reviews = settings.ASSIGNMENT_PR.get_peer_reviews()
-
-        print(original_peer_reviews)
+    
+    main()
 
 
 
-        _prompt_for_confirmation([("Do you need to autosubmit for: ", settings.ASSIGNMENT.name)])
 
-        students = settings.COURSE.get_users(enrollment_type=['student'])
-        auto_submit(students, settings.ASSIGNMENT)
     

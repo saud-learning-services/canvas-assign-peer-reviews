@@ -2,6 +2,7 @@ from canvasapi import Canvas
 import util
 import sys
 from interface import _prompt_for_confirmation
+from termcolor import colored
 
 def create_instance(API_URL, API_KEY):
     try:
@@ -66,11 +67,11 @@ def _return_single_dict_match(some_list, match_key, match_val):
 
 def auto_submit(students, assignment):
 
-    submission_string = input("Please input a submission string\nExample, This is an automatic submission on behalf of - ")
+    submission_string = input(colored("Please input a submission string\nExample, `This is an automatic submission on behalf of -` ", "blue"))
 
     _prompt_for_confirmation([(
-        "You are choosing to autosubmit for all students for assignment: ", assignment.name),
-        ("This will look like: ", f"{submission_string} SOME STUDENT")])
+        "You are choosing to autosubmit for all students for assignment", assignment.name),
+        ("This will look like", colored(f"{submission_string} SOME STUDENT", "yellow"))])
 
     submissions_list = []
 
