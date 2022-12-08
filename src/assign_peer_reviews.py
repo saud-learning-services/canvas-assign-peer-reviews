@@ -35,6 +35,8 @@ def setup(API_URL, API_KEY):
     # for the new assignment, delete any existing peer reviews
     #TODO - add confirmation step here 
     # returns submissions, needed to assign new peer reviews
+
+    _prompt_for_confirmation([("Please confirm you would like to move forward assigning peer reviews for: ", f"{ASSIGNMENT.name}. Please note - this will delete any existing peer reviews in {ASSIGNMENT.name}")])
     _create_reverse_peer_reviews(ASSIGNMENT, students, og_peer_reviews)
 
     # for each submission
@@ -42,43 +44,48 @@ def setup(API_URL, API_KEY):
     # get the list of reviewers
 
 
-
 def _create_reverse_peer_reviews(assignment, student_dict, original_reviews):
 
-    new_peer_reviews = original_reviews.groupby("user_id")["assessor_id"].apply(list).reset_index()
+    # arrange the original peer reviews so for each "assessor" there is a list of "user_ids"
+    # the assessor in the previous round becomes the reviewer 
+    # i.e) in round 1 Student A was reviewed by student B, C, D, E
+    # B,C,D,E are assessors in round 1, in round 2 their feedback is assessed by A
+    # Student A reviews B,C,D,E in this round
+
+    new_peer_reviews = original_reviews.groupby("assessor_id")["user_id"].apply(list).reset_index()
     new_assignment_submissions = assignment.get_submissions()
 
     for i in new_assignment_submissions:
-        reviewed_by_list = None
+        to_review_list = None
+        
         user_id = i.user_id
         reviewer_name = student_dict.get(int(user_id))
-
-        #try to delete current peer reviews
-        try:
-            _delete_submission_peer_reviews(i)
-            
-            try:
-                reviewed_by = new_peer_reviews[new_peer_reviews['user_id'] == user_id]
-                reviewed_by_list = reviewed_by.iloc[0]["assessor_id"]
-            except:
-                print(f"{reviewer_name} was not assigned to any reviewers")
-            
-
-            if reviewed_by_list:
-                print(f"{reviewer_name} reviewing {len(reviewed_by_list)} reviewers:")
-                for j in reviewed_by_list:
-                    reviewee_name = student_dict.get(int(j))
-                    try:
-                        # for the submission (which is done by the user_id in i)
-                        # create a peer review by k, where k is one of the reviewers
-                        assignment.get_submission(j).create_submission_peer_review(j)
-                        print(f"\t-{reviewee_name}")
-                    except:
-                        print(f"Error creating review by {user_id} for {reviewee_name}")
-        except:
-            print("Error")
         
-      
+        # DELETE REVIEWS
+        _delete_submission_peer_reviews(i)
+
+        try:
+            to_review = new_peer_reviews[new_peer_reviews['assessor_id'] == user_id]
+            to_review_list = to_review.iloc[0]["user_id"]
+
+        except:
+            print(f"{reviewer_name} was not assigned to give any reviews")
+
+        if to_review_list:
+            print(f"{reviewer_name} is reviewed by {len(to_review_list)} students:")
+            
+
+            for j in to_review_list:
+                reviewee_name = student_dict.get(int(j))
+                try:
+                    # for the submission (which is done by the user_id in i)
+                    # create a peer review by k, where k is one of the reviewers
+                    
+                    i.create_submission_peer_review(j)
+                    print(f"\t-{reviewee_name}")
+                    
+                except Exception as e:
+                    print(f"Error {e}")
 
 
 def _create_student_dict(course):
