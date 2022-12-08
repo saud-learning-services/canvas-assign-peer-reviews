@@ -3,7 +3,8 @@
 
 #### First Time
 
-1. Ensure you have [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) installed (Python 3.9 version)
+1. Ensure you have [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) installed (Python 3.9 version) or [miniconda](https://docs.conda.io/en/latest/miniconda.html)
+> we recommend miniconda if you don't need the Anaconda GUI
 2. Clone **{PROJECT}** repository
 3. Import environment (once): `$ conda env create -f environment.yml`
 4. Create .env file and include:
