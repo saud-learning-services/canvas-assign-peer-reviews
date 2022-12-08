@@ -58,7 +58,7 @@ def get_user_inputs(URL, KEY):
     except Exception as e:
         shut_down("ERROR: Course not found. Please check course number.")
 
-    # get how to assign peer reviews
+    # get how to Canvas Nesting Doll Peer Reviews
     try:
         # NOT IMPLEMENTED - NO PICK
         #title = "Please select how you to get student information for assigning peer reviews"

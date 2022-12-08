@@ -1,6 +1,6 @@
-# Canvas Assign Peer Reviews
+# Canvas Nesting Doll Peer Reviews
 
-> - name: canvas-assign-peer-reviews
+> - name: canvas-nesting-doll-peer-reviews
 > - ops-run-with: jupyter
 > - python>=3.7
 > - canvasapi>=2.0.0
@@ -31,7 +31,7 @@ This project is currently designed for a specific case at Sauder - to assign "Ne
 
 ### Sauder Operations
 
-_Are you Sauder Operations Staff? Please go [here](https://github.com/saud-learning-services/instructions-and-other-templates/blob/main/docs/running-instructions.md) for detailed instructions to run in Jupyter. ("The Project", or "the-project" is "canvas-assign-peer-reviews" or "Canvas Assign Peer Reviews")._
+_Are you Sauder Operations Staff? Please go [here](https://github.com/saud-learning-services/instructions-and-other-templates/blob/main/docs/running-instructions.md) for detailed instructions to run in Jupyter. ("The Project", or "the-project" is "canvas-nesting-doll-peer-reviews" or "Canvas Nesting Doll Peer Reviews")._
 
 > Project uses **conda** to manage environment (See official **conda** documentation [here](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file))
 
@@ -42,7 +42,7 @@ _Are you Sauder Operations Staff? Please go [here](https://github.com/saud-learn
 
 1. Ensure you have [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html) installed (Python 3.9 version) or [miniconda](https://docs.conda.io/en/latest/miniconda.html)
 > we recommend miniconda if you don't need the Anaconda GUI
-2. Clone **canvas-assign-peer-reviews** repository
+2. Clone **canvas-nesting-doll-peer-reviews** repository
 3. Import environment (once): `$ conda env create -f environment.yml`
 4. Create .env file aned include:
 
@@ -63,8 +63,8 @@ API_URL = "https://ubc.instructure.com"
 #### Every Time
 
 1. Run:
-   1. navigate to your directory `$ cd YOUR_PATH/canvas-assign-peer-reviews`
-   1. in terminal activate the environment (see step 3 on first run) `$ conda activate canvas-assign-peer-reviews` (also works with 🌎 canvas-universal-env)
+   1. navigate to your directory `$ cd YOUR_PATH/canvas-nesting-doll-peer-reviews`
+   1. in terminal activate the environment (see step 3 on first run) `$ conda activate canvas-nesting-doll-peer-reviews` (also works with 🌎 canvas-universal-env)
    2. ensure you have a .env file in the project folder with active token information
    3. in the terminal launch a jupyter notebook `$ jupyter notebook`
    4. open appropriate jupyter notebook and follow instructions 

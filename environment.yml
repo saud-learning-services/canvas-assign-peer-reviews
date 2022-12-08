@@ -1,4 +1,4 @@
-name: canvas-assign-peer-reviews
+name: canvas-nesting-doll-peer-reviews
 channels:
   - conda-forge
   - anaconda
