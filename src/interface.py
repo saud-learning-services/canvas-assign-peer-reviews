@@ -6,7 +6,6 @@ authors:
 import settings
 import pandas as pd
 from util import shut_down
-from pick import pick
 from canvasapi import Canvas
 from termcolor import cprint, colored
 import os
@@ -61,6 +60,7 @@ def get_user_inputs(URL, KEY):
 
     # get how to assign peer reviews
     try:
+        # NOT IMPLEMENTED - NO PICK
         #title = "Please select how you to get student information for assigning peer reviews"
         #options = ["group", "assignment"]
         #peer_reviews_from = pick(options, title, multiselect=False, min_selection_count=1)

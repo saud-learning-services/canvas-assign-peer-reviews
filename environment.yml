@@ -1,4 +1,4 @@
-name: PROJECT
+name: canvas-assign-peer-reviews
 channels:
   - conda-forge
   - anaconda
@@ -13,4 +13,3 @@ dependencies:
   - pip
   - pip:
       - canvasapi>=2.0.0
-      - pick
