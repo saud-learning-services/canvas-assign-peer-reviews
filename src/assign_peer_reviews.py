@@ -2,7 +2,7 @@ import pandas as pd
 from helpers import auto_submit
 from interface import get_user_inputs, _prompt_for_confirmation
 import os
-from termcolor import colored
+from termcolor import colored, cprint
 from dotenv import load_dotenv
 import settings
 load_dotenv() 
@@ -30,12 +30,12 @@ def main():
     
     # get the peer reviews from the original assignment
     og_peer_reviews = _get_peer_reviews(ASSIGNMENT_PR)
-    print(f"{ASSIGNMENT_PR.name} peer reviews:")
+    print(f"{colored(ASSIGNMENT_PR.name, 'yellow')} peer reviews:")
     print(og_peer_reviews)
 
     # for each user, get the list of who they were assessed by
     # in the new peer reviews, the user will assess the original assessees
-    #_check_for_auto_submit(ASSIGNMENT, STUDENTS)
+    _check_for_auto_submit(ASSIGNMENT, STUDENTS)
     # for the new assignment, delete any existing peer reviews
     #TODO - add confirmation step here 
     # returns submissions, needed to assign new peer reviews
@@ -43,7 +43,7 @@ def main():
 
     _prompt_for_confirmation([
         ("Please confirm you would like to move forward assigning peer reviews for", 
-        f"{colored(ASSIGNMENT.name, 'yellow')}{colored('. Please note - this will delete any existing peer reviews in ', 'blue')}{colored(ASSIGNMENT.name, 'yellow')}")
+        f"{colored(ASSIGNMENT.name, 'green')}{colored('. Please note - this will delete any existing peer reviews in ', 'blue')}{colored(ASSIGNMENT.name, 'green')}")
         ])
 
     _create_reverse_peer_reviews(ASSIGNMENT, students_dict, og_peer_reviews)

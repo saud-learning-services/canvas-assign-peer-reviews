@@ -40,7 +40,7 @@ def get_user_inputs(URL, KEY):
     # get user object
     try:
         user = canvas.get_user("self")
-        cprint(f"\nHello, {user.name}!", "green")
+        cprint(f"\nHello, {user.name}!", "magenta")
         # shut_down('TEMP KILL SWITCH')
     except Exception as e:
         shut_down(
@@ -54,7 +54,7 @@ def get_user_inputs(URL, KEY):
     try:
         course_number = input(colored("Course Number: ", "blue"))
         course = canvas.get_course(course_number)
-        cprint(f"{course.name}", "yellow")
+        cprint(f"{course.name}", "magenta")
     except Exception as e:
         shut_down("ERROR: Course not found. Please check course number.")
 
@@ -106,7 +106,7 @@ def get_user_inputs(URL, KEY):
     try:
         assignment_number = input(colored("Please enter the assignment id to create new peer reviews for: ", "blue"))
         assignment = course.get_assignment(assignment_number, include=["submissions"])
-        cprint(f"{assignment.name}", "yellow")
+        cprint(f"{assignment.name}", "green")
 
     except Exception as e:
         shut_down("ERROR: Assignment not found. Please check assignment number.")

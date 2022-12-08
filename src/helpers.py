@@ -71,7 +71,7 @@ def auto_submit(students, assignment):
 
     _prompt_for_confirmation([(
         "You are choosing to autosubmit for all students for assignment", assignment.name),
-        ("This will look like", colored(f"{submission_string} SOME STUDENT", "yellow"))])
+        ("This will look like", colored(f"{submission_string} SOME STUDENT", "cyan"))])
 
     submissions_list = []
 
