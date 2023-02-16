@@ -52,7 +52,7 @@ API_URL = "https://ubc.instructure.com"
 ```
 
 > Creating an env file: 
-> - if you have VSCode (Mac or Windows): https://learning.oreilly.com/library/view/javascript-by-example/9781788293969/d34ba441-abb3-4937-acf1-a2e7d54ffb23.xhtmlto and enter the information into the .env file
+> - if you have VSCode (Mac or Windows): Follow instructions at https://www.oreilly.com/library/view/javascript-by-example/9781788293969/d34ba441-abb3-4937-acf1-a2e7d54ffb23.xhtml and enter the information into the .env file
 > - Otherwise:
 > 1. Open Notepad (or TextEditor) (need someting that creates plain text files)
 > 2. Enter the information (API_KEY, API_URL from above) and Save
