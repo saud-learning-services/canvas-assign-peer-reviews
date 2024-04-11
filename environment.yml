@@ -9,7 +9,7 @@ dependencies:
   - termcolor
   - requests
   - jupyter
-  - pandas
+  - pandas=1.5.3
   - pip
   - pip:
       - canvasapi>=2.0.0
